@@ -1,0 +1,265 @@
+<html>
+<head>
+    <title>Lumines</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+    /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+ HTML5 display-role reset for older browsers 
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+    	body {
+    		background: url(background.jpg);
+    		color: #fff;
+    		font-family: sans-serif;
+    		font-size: 2em;
+            text-align: center;
+            padding-top: 6em;
+    	}
+
+        #arena-container{
+            display: inline-block;
+            position: relative;
+        }
+
+    	#arena {
+    
+    		border: solid .15em #fff;
+            border-top:   none;
+    		height: 45vh;
+            margin: 0 auto;
+    	}
+
+        #next-piece-canvas{
+
+            position: absolute;
+            top:0;
+            left:-100px;
+            height: 30vh;
+        }
+
+        .game_image_asset{
+            display: none;
+        }
+
+       #info-table {
+        display: inline-block;
+                    top:0;
+                    right:-300px;
+                   position: absolute;
+                   width: 7em;
+        }
+
+        .info-label {
+
+            weight:inherit;
+            display:flex;
+            height: 2em;
+            background-color: grey;
+            align-items: center;
+            justify-content: center;
+        }
+
+  
+
+         .info-value {
+            display: flex;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            display: inline-block;
+               
+
+        }
+
+        span {
+            position: absolute;
+        }
+
+        #gameOverModal,#myModal{
+          color: black;
+        }
+
+         #gameOverModal .modal-title , #myModal .modal-title {
+          font-size: 36px;
+        }
+        #gameOverModal .modal-body, #myModal .modal-body {
+          font-size: 16px;
+            text-align: left;
+        }
+
+        #myModal    .modal {
+      text-align: center;
+    }
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+    </style>
+
+
+</head>
+
+<body >
+<div id="app-container">
+
+
+
+<!-- app -->
+
+
+
+
+
+
+<div id="upper-container">
+    <span id="arena-container">
+           <canvas id="arena" width="480" height="360"> </canvas>
+                      <canvas id="next-piece-canvas" width="60" height="240"></canvas>       
+                     <div id="info-table">
+        <div id="level-label" class="info-label">Level</div>
+        <div id="level-value" class="info-value">1</div>   
+
+        <div id="currentscore-label" class="info-label">Currentscore</div>
+        <div id="currentscore-value" class="info-value">0</div>   
+
+        <div id="highscore-label" class="info-label">Highscore</div>
+        <div id="highscore-value" class="info-value">0</div>   
+
+          </span> 
+
+
+ 
+
+    </div>   
+</div>
+<!-- 
+                    <div id="next-piece-canvas-container">
+           <canvas id="next-piece-canvas" width="60" height="240"></canvas>                
+</div>    -->
+
+
+
+             </canvas>
+
+ 
+    <img id="red_block" src="red_block.jpg" class="game_image_asset"/>
+     <img id="blue_block" src="blue_block.jpg" class="game_image_asset"/>
+
+</div>
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h4 class="modal-title">Lumines</h4>
+      </div>
+      <div class="modal-body">
+        <p>Lumines is a fun game similar to the popular block game tetris. You gain points by creating rectangles of similar colors of length and width of at least 2. Use <span class="glyphicon glyphicon-arrow-left"></span> and <span class="glyphicon glyphicon-arrow-right"></span> to move. Use <span class="glyphicon glyphicon-arrow-up"></span> and <span class="glyphicon glyphicon-arrow-down"></span> to rotate. Use the SPACEBAR to drop the block quickly. Good Luck!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="start-game-btn" class="btn btn-primary" data-dismiss="modal">Start Game</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div id="gameOverModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h4 class="modal-title">Game Over!</h4>
+      </div>
+      <div class="modal-body">
+        <p id="gameOverMessage">Description</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="start-another-game-btn" class="btn btn-primary" data-dismiss="modal">Start Another Game</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+     <script>
+
+
+// start app
+
+
+
+     </script>
+
+    <script src="lumines.js"></script>
+</body>
+</html>
